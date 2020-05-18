@@ -1,24 +1,28 @@
 require 'pry'
 class Artist
   attr_accessor :name, :songs
-  # @@song_count = 0 #not sure how to define class variable to Song class
+
   def initialize(name)
     @name = name
-    @songs = []   #what i imagined from since #songs method has many songs
   end
   
-  def songs #has many songs
-    
+  def songs
+    # Song.all or
+    Song.all.select do |song| 
+    song.artist == self
+    end
   end
   
-  def add_song
-    # @songs << song
+  def add_song(song)
+    song.artist = self   #refers to the artist instance
   end
   
-  def add_song_by_name
-    
+  def add_song_by_name(song_name)
+    song = Song.new(song_name)
+    song.artist = self   #or add_song(song)
   end
   
   def self.song_count
+    Song.all.count
   end
 end
